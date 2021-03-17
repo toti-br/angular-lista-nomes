@@ -9,6 +9,8 @@ import { NomesService } from '../nomes.service';
 })
 export class TesteServicoComponent implements OnInit {
 
+
+
   nomes: Nome[] = []
 
   nomesTipoF: Nome[] = []

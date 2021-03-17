@@ -1,18 +1,15 @@
 <label>Nome:
-    <input type="text">
-  </label>
+  <input type="text" [(ngModel)]="nome">
+</label>
 
+<p>Adicionar nome</p>
 
-  {{nome}}
-  
-  <p>Adicionar nome</p>
-  
-  <label>
-    <input type="radio" name="sexo" value="menino" checked>
-    Menino
-  </label>
-  <label>
-    <input type="radio" name="sexo" value="menina">
-    Menina
-  </label>
-  <button >Adicionar</button>
+<label>
+  <input type="radio" name="sexo" [(ngModel)]="tipo" value="M">
+  Menino
+</label>
+<label>
+  <input type="radio" name="sexo" [(ngModel)]="tipo" value="F">
+  Menina
+</label>
+<button (click)="adicionarNome()">Adicionar</button>

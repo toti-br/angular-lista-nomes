@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NomesService } from '../nomes.service';
 
 @Component({
@@ -11,19 +11,25 @@ export class EntradaDeNomesComponent implements OnInit {
   constructor(private nomesService: NomesService) { }
 
   nome: string = ""
-  tipo: 'M' | 'F' = 'M'
+  tipo: 'M' | 'F' | '' = ''
 
   ngOnInit(): void {
   }
 
   adicionarNome() {
+    if (this.tipo && this.nome) {
+      let nome = {
+        nome: this.nome,
+        tipo: this.tipo
+      }
 
-    let nome = {
-      nome: this.nome,
-      tipo: this.tipo
+      this.nomesService.adicionar(nome)
+    } else {
+      alert('Precisa selecionar um tipo e escrever um nome!')
     }
 
-    this.nomesService.adicionar(nome)
+
+    this.nomesService.obterTodos().subscribe(lista => console.log(lista))
   }
 
 }

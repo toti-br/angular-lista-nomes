@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import Nome from './models/nome.model';
 
 @Injectable({
@@ -7,14 +7,26 @@ import Nome from './models/nome.model';
 })
 export class NomesService {
 
-  private listaDeNomes: Nome[] = []
+  private nomesEvento$ = new Subject<boolean>()
+
+  private listaDeNomes: Nome[] = [
+    { nome: "Ronaldo", tipo: "M"},
+    { nome: "Batata", tipo: "F"},
+    { nome: "Cristiano", tipo: "M"}
+  ]
 
   adicionar(nome: Nome) {
-    this.listaDeNomes.push(nome)
+    this.listaDeNomes.push(nome) // acrescentar nome na lista
+
+    this.nomesEvento$.next(true) // notificando componentes que a lista foi atualizada
   }
 
   obterTodos() {
     return of(this.listaDeNomes)
+  }
+
+  nomesAtualizados() {
+    return this.nomesEvento$.asObservable()
   }
 
   obterPorTipo(tipo: 'M' | 'F' ) {
